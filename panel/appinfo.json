@@ -1,0 +1,15 @@
+{
+  "id": "com.example.smarthome",
+  "version": "1.0.0",
+  "vendor": "Example Vendor",
+  "type": "web",
+  "main": "index.html",
+  "title": "Smart Home",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "iconColor": "#2a2010",
+  "bgColor": "#0A0C10",
+  "resolution": "1920x1080",
+  "disableBackHistoryAPI": true,
+  "handlesRelaunch": true
+}

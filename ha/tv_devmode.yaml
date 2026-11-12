@@ -1,0 +1,42 @@
+# LG webOS TV - keep Developer Mode alive.
+# LG ends a Developer Mode session after 1000 hours; when it does, every
+# sideloaded app (Moonfin, the custom home screen, the smart home panel)
+# disappears from the TV. Calling LG's renewal URL resets the timer.
+# The URL carries the TV's session token, so it lives in secrets.yaml.
+# Added from the TV home project, 27 Oct 2026.
+
+rest_command:
+  lg_tv_devmode_renew:
+    url: !secret lg_tv_devmode_renew_url
+    method: get
+    timeout: 20
+
+automation:
+  - id: lg_tv_devmode_renew_daily
+    alias: LG TV - Renew Developer Mode
+    description: >-
+      Renews the LG Developer Mode session every night so Moonfin and the
+      custom home screen stay installed. Notifies if the renewal fails.
+    mode: single
+    triggers:
+      - trigger: time
+        at: "04:17:00"
+    actions:
+      - action: rest_command.lg_tv_devmode_renew
+        response_variable: renew
+        continue_on_error: true
+      - if:
+          - condition: template
+            value_template: >-
+              {{ renew is not defined or renew.status != 200
+                 or 'success' not in (renew.content | string) }}
+        then:
+          - action: persistent_notification.create
+            data:
+              notification_id: lg_tv_devmode
+              title: LG TV Developer Mode
+              message: >-
+                Renewing Developer Mode failed
+                ({{ renew.status if renew is defined else 'no response' }}).
+                Open the Developer Mode app on the TV and press Extend,
+                otherwise Moonfin and the home screen disappear when it runs out.

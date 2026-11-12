@@ -1,0 +1,200 @@
+{
+  "_comment": "Example UI configuration with fake entity IDs. Copy to config.local.json (git-ignored) and replace the entity IDs with yours. Strings like ${TVH_PANEL_APP_ID} are replaced with the .env value at build time.",
+  "home": {
+    "roomName": "Living room",
+    "temperature": "sensor.living_room_temperature",
+    "lock": "lock.apartment_door",
+    "lights": [
+      "light.living_room_cabinet",
+      "light.living_room_spot_1",
+      "light.living_room_spot_2",
+      "light.living_room_lamp",
+      "light.bathroom_spot_left",
+      "light.bathroom_spot_right",
+      "light.bedroom_bed",
+      "light.desk"
+    ]
+  },
+  "dock": [
+    {
+      "title": "Moonfin",
+      "id": "org.moonfin.webos",
+      "icon": "moon",
+      "color": "#2b2450"
+    },
+    {
+      "title": "Smart home",
+      "id": "${TVH_PANEL_APP_ID}",
+      "icon": "home",
+      "color": "#3a2a12",
+      "accent": true
+    },
+    {
+      "title": "YouTube",
+      "id": "youtube.leanback.v4",
+      "icon": "youtube",
+      "color": "#4a1414"
+    },
+    {
+      "title": "Spotify",
+      "id": "spotify-beehive",
+      "icon": "music",
+      "color": "#123f26"
+    },
+    {
+      "title": "TV",
+      "id": "com.webos.app.livetv",
+      "icon": "tv",
+      "color": "#1c3150"
+    },
+    {
+      "title": "Browser",
+      "id": "com.webos.app.browser",
+      "icon": "globe",
+      "color": "#183844"
+    },
+    {
+      "title": "Inputs",
+      "action": "inputs",
+      "icon": "inputs",
+      "color": "#262b36"
+    },
+    {
+      "title": "Settings",
+      "id": "com.palm.app.settings",
+      "icon": "gear",
+      "color": "#262b36"
+    }
+  ],
+  "panel": {
+    "roomName": "Living room",
+    "temperature": "sensor.living_room_temperature",
+    "humidity": "sensor.living_room_humidity",
+    "roomLights": [
+      "light.living_room_lamp"
+    ],
+    "doorViewSeconds": 120,
+    "tiles": [
+      {
+        "type": "light",
+        "entity": "light.living_room_lamp",
+        "title": "Lamp",
+        "icon": "bulb"
+      },
+      {
+        "type": "cover",
+        "entity": "cover.living_room_blind_left",
+        "title": "Blind left",
+        "icon": "blind"
+      },
+      {
+        "type": "cover",
+        "entity": "cover.living_room_blind_right",
+        "title": "Blind right",
+        "icon": "blind"
+      },
+      {
+        "type": "binary",
+        "entity": "binary_sensor.living_room_window",
+        "title": "Window",
+        "icon": "window",
+        "onText": "Open",
+        "offText": "Closed"
+      },
+      {
+        "type": "climate",
+        "entity": "climate.living_room",
+        "title": "Heating",
+        "icon": "thermo"
+      },
+      {
+        "type": "fan",
+        "entity": "fan.living_room_fan",
+        "title": "Fan",
+        "icon": "fan",
+        "badge": "Summer",
+        "hideWhenMissing": true
+      }
+    ],
+    "scenes": [
+      {
+        "title": "Movie night",
+        "sub": "Flat dark, living room 15%",
+        "icon": "movie",
+        "primary": true,
+        "domain": "script",
+        "service": "turn_on",
+        "target": {
+          "entity_id": "script.movie_night"
+        }
+      },
+      {
+        "title": "Bright",
+        "icon": "sun",
+        "domain": "light",
+        "service": "turn_on",
+        "data": {
+          "brightness_pct": 100
+        },
+        "target": {
+          "entity_id": "light.living_room_lamp"
+        }
+      },
+      {
+        "title": "Relax",
+        "icon": "sofa",
+        "domain": "light",
+        "service": "turn_on",
+        "data": {
+          "brightness_pct": 40
+        },
+        "target": {
+          "entity_id": "light.living_room_lamp"
+        }
+      },
+      {
+        "title": "All off",
+        "icon": "power",
+        "domain": "light",
+        "service": "turn_off",
+        "target": {
+          "entity_id": [
+            "light.living_room_cabinet",
+            "light.living_room_spot_1",
+            "light.living_room_spot_2",
+            "light.living_room_lamp",
+            "light.bathroom_spot_left",
+            "light.bathroom_spot_right",
+            "light.bedroom_bed",
+            "light.desk"
+          ]
+        }
+      }
+    ],
+    "media": {
+      "groupName": "Living room",
+      "groupMembers": "Speaker A, Speaker B",
+      "players": [
+        "media_player.spotify_user",
+        "media_player.living_room_speaker"
+      ],
+      "volume": "media_player.living_room_speaker",
+      "resume": "script.resume_spotify",
+      "resumeLabel": "Resume Spotify"
+    },
+    "doors": {
+      "front": {
+        "title": "Front door",
+        "subtitle": "Intercom",
+        "lastRing": "event.front_door_ring",
+        "openScript": "script.open_front_door"
+      },
+      "flat": {
+        "title": "Flat door",
+        "subtitle": "Smart lock",
+        "lock": "lock.apartment_door",
+        "unlatchScript": "script.unlatch_flat_door"
+      }
+    }
+  }
+}

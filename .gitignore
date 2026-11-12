@@ -1,0 +1,18 @@
+# Local configuration and secrets. Only the .example files are tracked.
+.env
+.env.*
+!.env.example
+config.local.json
+wifi.local.json
+
+# Build output: the packages carry the Home Assistant token and Jellyfin key
+dist/
+*.ipk
+
+# Screenshots from the TV (show personal viewing and home state)
+shots/
+
+# Downloaded or generated at build time
+shared/fonts/
+launcher/*.png
+panel/*.png

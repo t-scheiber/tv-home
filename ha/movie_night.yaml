@@ -1,0 +1,49 @@
+# Movie night: turns off every Philips Hue light in the flat except the
+# living room and the bathroom, then dims the living room.
+# Installed in Home Assistant as script.movie_night (scripts.yaml).
+
+alias: Movie night
+icon: mdi:movie-open
+mode: single
+sequence:
+  - variables:
+      living_room: living_room  # area ID of the living room
+      bathroom: bathroom        # area ID of the bathroom
+      dim_to: 15                # living-room brightness in percent
+
+      # Lights that stay as they are (living room is handled below)
+      keep: "{{ area_entities(living_room) + area_entities(bathroom) }}"
+
+      # Every Hue light outside those two rooms. Hue room/zone group lights
+      # are skipped so a zone that spans rooms can't switch the bathroom off.
+      lights_off: >-
+        {{ integration_entities('hue')
+           | select('match', 'light\.')
+           | reject('is_state_attr', 'is_hue_group', true)
+           | reject('is_state', 'unavailable')
+           | reject('in', keep)
+           | list }}
+
+      # Living-room lights: dim the ones already on; if none are on,
+      # bring them all up at the dim level instead.
+      living_lights: >-
+        {{ area_entities(living_room) | select('match', 'light\.') | list }}
+      living_on: >-
+        {{ living_lights | select('is_state', 'on') | list }}
+
+  - if: "{{ lights_off | count > 0 }}"
+    then:
+      - action: light.turn_off
+        target:
+          entity_id: "{{ lights_off }}"
+        data:
+          transition: 3
+
+  - if: "{{ living_lights | count > 0 }}"
+    then:
+      - action: light.turn_on
+        target:
+          entity_id: "{{ living_on if living_on | count > 0 else living_lights }}"
+        data:
+          brightness_pct: "{{ dim_to }}"
+          transition: 3

@@ -1,0 +1,107 @@
+# TV Home (LG webOS 6 TV, example entity IDs) - Home button, power-on and doorbell.
+# The TV can't be rooted, so Home Assistant does the routing: whenever LG's own
+# home screen comes to the front, it opens the custom home screen instead.
+# Added from the TV home project, 27 Oct 2026.
+
+input_boolean:
+  tv_lg_home_pass:
+    name: TV - Let LG home through for a while
+    icon: mdi:television-guide
+
+automation:
+  - id: tv_home_replace_lg_home
+    alias: TV - Custom home screen instead of LG home
+    description: >-
+      When LG's home screen opens (Home button, closing an app, power on),
+      open the custom home screen instead. "Open LG's home screen" in the
+      launcher's Back menu switches this off until another app is opened.
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id: media_player.living_room_tv
+        attribute: app_id
+        to: com.webos.app.home
+    conditions:
+      - condition: state
+        entity_id: input_boolean.tv_lg_home_pass
+        state: "off"
+    actions:
+      - action: webostv.command
+        target:
+          entity_id: media_player.living_room_tv
+        data:
+          command: system.launcher/launch
+          payload:
+            id: com.example.tvhome
+
+  - id: tv_home_power_on
+    alias: TV - Show home screen on power on
+    description: Shows the custom home screen a few seconds after the TV is switched on.
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: media_player.living_room_tv
+        from: "off"
+        to: "on"
+    actions:
+      - delay: "00:00:04"
+      - action: webostv.command
+        target:
+          entity_id: media_player.living_room_tv
+        data:
+          command: system.launcher/launch
+          payload:
+            id: com.example.tvhome
+
+  - id: tv_home_lg_pass_reset
+    alias: TV - Reset LG home pass
+    description: Ends the "Open LG's home screen" pass as soon as another app is opened, or after 10 minutes.
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: media_player.living_room_tv
+        attribute: app_id
+      - trigger: state
+        entity_id: input_boolean.tv_lg_home_pass
+        to: "on"
+        for: "00:10:00"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.tv_lg_home_pass
+        state: "on"
+      - condition: template
+        value_template: "{{ trigger.entity_id == 'input_boolean.tv_lg_home_pass' or state_attr('media_player.living_room_tv', 'app_id') != 'com.webos.app.home' }}"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.tv_lg_home_pass
+
+  - id: tv_home_doorbell
+    alias: TV - Doorbell on the TV
+    description: >-
+      When someone rings the video intercom while the TV is on, open the
+      doorbell screen of the smart home panel; "Back to my show" returns to
+      the app that was playing.
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id: event.front_door_ring
+    conditions:
+      - condition: state
+        entity_id: media_player.living_room_tv
+        state: "on"
+      - condition: template
+        value_template: "{{ trigger.from_state is not none and trigger.from_state.state not in ['unavailable', 'unknown'] }}"
+    actions:
+      - action: webostv.command
+        target:
+          entity_id: media_player.living_room_tv
+        data:
+          command: system.launcher/launch
+          payload:
+            id: com.example.smarthome
+            params:
+              view: door
+              returnTo: "{{ state_attr('media_player.living_room_tv', 'app_id') or '' }}"

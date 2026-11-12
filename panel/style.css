@@ -1,0 +1,107 @@
+/* Smart home panel */
+#panel { display: flex; width: 1920px; height: 1080px; }
+.side {
+  width: 340px; padding: 72px 32px 56px; background: var(--panel); border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; flex-direction: column;
+}
+.side-title { padding: 0 20px 20px; }
+.side-item {
+  display: flex; align-items: center; padding: 20px; border-radius: 18px; font-size: 26px; color: var(--soft); margin-bottom: 12px;
+}
+.side-item .icon { margin-right: 16px; }
+.side-item.focused { background: rgba(255,255,255,0.10); color: var(--text); }
+.side-fill { flex: 1; }
+.conn { font-size: 20px; color: var(--muted); padding: 0 20px 14px; display: flex; align-items: center; }
+.conn i { width: 10px; height: 10px; border-radius: 50%; background: #6EC27C; margin-right: 10px; }
+.conn.off i { background: #FF6B5A; }
+.side-note { font-size: 20px; color: var(--muted); padding: 0 20px; line-height: 1.5; }
+
+.main { flex: 1; padding: 64px 72px 56px; display: flex; }
+.room { flex: 1; display: flex; flex-direction: column; margin-right: 56px; }
+.room-head h1 { margin: 0; font-size: 72px; font-weight: 500; letter-spacing: -1.5px; }
+.room-sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
+
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 24px; margin-top: 34px; }
+.tile {
+  height: 196px; border-radius: 26px; padding: 26px 28px; background: var(--surface); border: 1px solid rgba(255,255,255,0.08);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.tile.on { background: var(--amber-bg); border-color: var(--amber-line); }
+.tile.on .t-state { color: var(--amber-soft); }
+.tile > div { width: 100%; }
+.tile .t-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.tile .badge { font-size: 18px; color: var(--muted); padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); }
+.tile .t-name { font-size: 28px; }
+.tile .t-state { font-size: 22px; color: var(--soft); margin-top: 8px; }
+.tile .t-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15); margin-top: 12px; }
+.tile .t-bar i { display: block; height: 6px; border-radius: 3px; background: var(--amber); }
+.tile.static { opacity: 0.92; }
+.tile.focused { background-color: rgba(242,244,247,0.12); }
+.tile.on.focused { background-color: rgba(255,181,71,0.24); }
+
+.scenes-wrap { margin-top: 34px; }
+.scenes { display: flex; margin-top: 16px; }
+.scene {
+  display: flex; align-items: center; padding: 18px 30px 18px 24px; border-radius: 999px; background: rgba(255,255,255,0.08);
+  margin-right: 16px; font-size: 24px;
+}
+.scene .icon { margin-right: 14px; }
+.scene .s-sub { display: block; font-size: 17px; color: var(--amber-soft); margin-top: 2px; }
+.scene.primary { background: var(--amber-bg); border: 1px solid var(--amber-line); }
+.scene.focused { background-color: rgba(242,244,247,0.16); }
+
+.media {
+  margin-top: auto; display: flex; align-items: center; padding: 20px 28px 20px 20px; border-radius: 28px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+}
+.art {
+  width: 112px; height: 112px; flex: none; border-radius: 16px; background: #3B2F4F center / cover no-repeat;
+  display: flex; align-items: center; justify-content: center; margin-right: 28px;
+}
+.media-text { flex: 1; min-width: 300px; }
+.media-eyebrow { font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.media-title { font-size: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 6px; }
+.media-sub { font-size: 22px; color: var(--muted); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.media-ctl { display: flex; align-items: center; margin-left: 24px; }
+.mbtn {
+  width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center; margin-left: 12px;
+}
+.mbtn.main { width: 80px; height: 80px; background: var(--text); color: var(--ground); }
+.mbtn.wide { width: auto; border-radius: 999px; padding: 0 26px; font-size: 22px; white-space: nowrap; }
+.mbtn.wide .icon { margin-right: 10px; }
+.mbtn.focused { background-color: rgba(242,244,247,0.22); }
+.mbtn.main.focused { background-color: #FFFFFF; }
+
+.doors { width: 520px; display: flex; flex-direction: column; }
+.doors-title { padding: 8px 8px 16px; }
+.door-card {
+  border-radius: 28px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  padding: 28px; margin-bottom: 24px;
+}
+.door-head { display: flex; align-items: center; margin-bottom: 24px; }
+.door-icon {
+  width: 72px; height: 72px; border-radius: 20px; background: rgba(255,255,255,0.08); flex: none;
+  display: flex; align-items: center; justify-content: center; margin-right: 20px;
+}
+.door-icon.alert { background: var(--amber-bg); }
+.door-name { font-size: 30px; }
+.door-sub { font-size: 22px; color: var(--muted); margin-top: 4px; }
+.door-sub.warn { color: var(--amber-soft); }
+.btn.wide { width: 100%; justify-content: center; }
+.door-btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-gap: 12px; }
+.door-btns .btn { justify-content: center; }
+.doors-note { font-size: 20px; color: var(--muted); line-height: 1.5; padding: 0 8px; }
+
+/* doorbell view */
+.bell { width: 1120px; display: flex; flex-direction: column; align-items: center; padding: 72px 80px; }
+.bell-ring {
+  width: 168px; height: 168px; border-radius: 50%; background: var(--amber-bg); border: 2px solid rgba(255,181,71,0.45);
+  display: flex; align-items: center; justify-content: center; animation: ring 1.6s ease-in-out infinite;
+}
+@keyframes ring { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.bell h1 { margin: 48px 0 0; font-size: 72px; font-weight: 500; letter-spacing: -1.5px; text-align: center; }
+.bell-sub { font-size: 28px; color: var(--muted); margin-top: 14px; }
+.bell-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-gap: 24px; width: 100%; margin-top: 48px; }
+.btn.big { padding: 28px 32px; font-size: 28px; border-radius: 22px; }
+.bell > .btn.ghost { margin-top: 28px; }

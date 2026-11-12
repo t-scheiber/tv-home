@@ -1,0 +1,7 @@
+{
+  "_comment": "Copy to wifi.local.json (kept out of Git). qrPath is the SVG path of the WiFi QR code for WIFI:T:WPA;S:<ssid>;P:<password>;; with 1 unit per module and qrSize modules wide.",
+  "ssid": "YOUR-WIFI-NAME",
+  "password": "YOUR-WIFI-PASSWORD",
+  "qrSize": 37,
+  "qrPath": ""
+}

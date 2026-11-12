@@ -1,0 +1,67 @@
+/* TV Home – shared look. 1920x1080, Chromium 79 (no flex gap: use margins). */
+@font-face {
+  font-family: 'Outfit';
+  src: url('fonts/Outfit.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+:root {
+  --ground: #0A0C10;
+  --panel: #0F1218;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-2: rgba(255, 255, 255, 0.10);
+  --line: rgba(255, 255, 255, 0.09);
+  --text: #F2F4F7;
+  --muted: #9AA3B2;
+  --soft: #C9CED6;
+  --amber: #FFB547;
+  --amber-soft: #FFD08A;
+  --amber-bg: rgba(255, 181, 71, 0.16);
+  --amber-line: rgba(255, 181, 71, 0.40);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; width: 1920px; height: 1080px; overflow: hidden;
+  background: var(--ground); color: var(--text);
+  font-family: Outfit, 'LG Smart UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; text-align: left; }
+.f { outline: none; transition: transform .18s var(--ease), box-shadow .18s var(--ease), background-color .18s; }
+.f.focused { box-shadow: 0 0 0 4px var(--ground), 0 0 0 8px var(--text); }
+.eyebrow { font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.icon { display: block; flex: none; }
+.hidden { display: none !important; }
+
+/* hold-to-confirm progress ring (data-hold buttons) */
+.f[data-hold] { position: relative; --hold: 0; }
+.f[data-hold]::after {
+  content: ''; position: absolute; left: 0; bottom: 0; height: 6px; border-radius: 0 0 22px 22px;
+  width: calc(var(--hold) * 100%); background: var(--amber); transition: none;
+}
+
+/* toast */
+.toast {
+  position: fixed; left: 50%; bottom: 64px; transform: translate(-50%, 40px); opacity: 0;
+  padding: 20px 36px; border-radius: 999px; background: #1A1F28; border: 1px solid var(--line);
+  font-size: 26px; transition: opacity .2s, transform .25s var(--ease); z-index: 100; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.error { border-color: rgba(255, 107, 90, 0.6); }
+
+/* overlays */
+.overlay {
+  position: fixed; left: 0; top: 0; width: 1920px; height: 1080px; z-index: 50;
+  background: rgba(5, 7, 10, 0.86); display: flex; align-items: center; justify-content: center;
+}
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 40px; padding: 64px 72px;
+}
+.btn {
+  display: inline-flex; align-items: center; padding: 22px 32px; border-radius: 18px;
+  background: var(--surface-2); font-size: 26px;
+}
+.btn .icon { margin-right: 16px; }
+.btn.primary { background: var(--amber-bg); border: 1px solid var(--amber-line); }
+.btn.ghost { background: none; color: var(--muted); }

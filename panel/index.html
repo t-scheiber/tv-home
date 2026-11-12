@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Smart Home</title>
+<link rel="stylesheet" href="shared/base.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="panel">
+    <nav class="side">
+      <div class="eyebrow side-title">Smart home</div>
+      <button class="side-item f" data-jump="tiles" id="navRoom"></button>
+      <button class="side-item f" data-jump="doors" id="navDoors"></button>
+      <button class="side-item f" data-jump="scenes" id="navScenes"></button>
+      <div class="side-fill"></div>
+      <div class="conn" id="conn"></div>
+      <div class="side-note">Back closes the panel and returns to what you were watching.</div>
+    </nav>
+
+    <main class="main">
+      <section class="room">
+        <div class="room-head">
+          <h1 id="roomName"></h1>
+          <div class="room-sub" id="roomSub"></div>
+        </div>
+        <div class="tiles" id="tiles"></div>
+        <div class="scenes-wrap">
+          <div class="eyebrow">Scenes</div>
+          <div class="scenes" id="scenes"></div>
+        </div>
+        <div class="media" id="media">
+          <div class="art" id="mediaArt"></div>
+          <div class="media-text">
+            <div class="media-eyebrow" id="mediaEyebrow"></div>
+            <div class="media-title" id="mediaTitle"></div>
+            <div class="media-sub" id="mediaSub"></div>
+          </div>
+          <div class="media-ctl" id="mediaCtl"></div>
+        </div>
+      </section>
+
+      <aside class="doors" id="doors">
+        <div class="eyebrow doors-title">Doors</div>
+        <div class="door-card" id="frontCard">
+          <div class="door-head">
+            <div class="door-icon" id="frontIcon"></div>
+            <div><div class="door-name" id="frontName"></div><div class="door-sub" id="frontSub"></div></div>
+          </div>
+          <button class="btn wide f" id="frontOpen" data-hold="1500" data-hold-hint="Hold OK to buzz the door open"></button>
+        </div>
+        <div class="door-card" id="flatCard">
+          <div class="door-head">
+            <div class="door-icon" id="flatIcon"></div>
+            <div><div class="door-name" id="flatName"></div><div class="door-sub" id="flatSub"></div></div>
+          </div>
+          <div class="door-btns">
+            <button class="btn f" id="flatLock" data-hold="1500" data-hold-hint="Hold OK to confirm"></button>
+            <button class="btn f" id="flatUnlatch" data-hold="1500" data-hold-hint="Hold OK to unlatch">Unlatch</button>
+          </div>
+        </div>
+        <div class="doors-note">Door buttons only act after you hold OK for a moment, so a stray press never opens a door.</div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="overlay hidden" id="doorView">
+    <div class="card bell">
+      <div class="bell-ring" id="bellIcon"></div>
+      <h1>Someone's at the front door</h1>
+      <div class="bell-sub" id="bellSub"></div>
+      <div class="bell-actions">
+        <button class="btn primary big f" id="bellBuzz" data-hold="1500" data-hold-hint="Hold OK to buzz the door open"></button>
+        <button class="btn big f" id="bellFlat" data-hold="1500" data-hold-hint="Hold OK to unlock the flat door"></button>
+      </div>
+      <button class="btn ghost f" id="bellBack">Back to my show</button>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="shared/icons.js"></script>
+  <script src="shared/core.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

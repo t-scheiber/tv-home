@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<link rel="stylesheet" href="shared/base.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="bg">
+    <div class="bg-color" id="bgColor"></div>
+    <div class="bg-img" id="bgA"></div>
+    <div class="bg-img" id="bgB"></div>
+    <div class="bg-scrim"></div>
+  </div>
+
+  <main id="home">
+    <header class="top">
+      <div class="when">
+        <div class="date" id="date"></div>
+        <div class="clock" id="clock"></div>
+      </div>
+      <div class="chips" id="chips"></div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow" id="heroEyebrow">Continue watching · Moonfin</div>
+      <div class="hero-title" id="heroTitle"></div>
+      <div class="hero-meta" id="heroMeta"></div>
+      <div class="rail" id="rail"></div>
+    </section>
+
+    <footer class="bottom">
+      <div class="dock" id="dock"></div>
+      <div class="hint" id="hint"></div>
+    </footer>
+  </main>
+
+  <div class="overlay hidden" id="wifiOverlay">
+    <div class="card wifi">
+      <div class="qr-box"><svg id="qr" width="352" height="352" shape-rendering="crispEdges"><path fill="#0A0C10"/></svg></div>
+      <div class="wifi-text">
+        <div class="eyebrow amber" id="wifiEyebrow"></div>
+        <h1>Scan to join</h1>
+        <p class="muted">Point your phone's camera at the code and tap the network that pops up.</p>
+        <div class="wifi-table">
+          <div class="wifi-row"><span class="muted">Network</span><span id="wifiSsid"></span></div>
+          <div class="wifi-line"></div>
+          <div class="wifi-row"><span class="muted">Password</span><span id="wifiPw" class="pw"></span></div>
+        </div>
+        <div class="wifi-actions">
+          <button class="btn f" id="wifiShow">Show password</button>
+          <button class="btn ghost f" id="wifiBack">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="inputsOverlay">
+    <div class="card list-card">
+      <div class="eyebrow">Inputs</div>
+      <div class="list" id="inputsList"></div>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="menuOverlay">
+    <div class="card list-card">
+      <div class="eyebrow">Home</div>
+      <div class="list">
+        <button class="list-item f" id="menuLg">Open LG's home screen</button>
+        <button class="list-item f" id="menuReload">Refresh this screen</button>
+        <button class="list-item f" id="menuClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="shared/icons.js"></script>
+  <script src="shared/core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
